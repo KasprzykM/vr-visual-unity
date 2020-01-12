@@ -10,9 +10,10 @@ public class GameController : MonoBehaviour
     private const float MIN_RANDOM_POS = -10.0f;
     private const float MAX_RANDOM_POS =  10.0f;
 
-    private const float MIN_RANDOM_TIME = 2.5f;
-    private const float MAX_RANDOM_TIME = 5.0f;
+    private const float MIN_RANDOM_TIME = 1.0f;
+    private const float MAX_RANDOM_TIME = 2.0f;
     float targetTime = MAX_RANDOM_TIME;
+    private PrimitiveType[] ALLOWED_PRIMITVES = {PrimitiveType.Cube, PrimitiveType.Cylinder, PrimitiveType.Sphere};
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +26,10 @@ public class GameController : MonoBehaviour
 
     private void CreateCube()
     {
-        GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject newCube = GameObject.CreatePrimitive(ALLOWED_PRIMITVES[Random.Range(0, ALLOWED_PRIMITVES.Length)]);
         newCube.AddComponent<EventTrigger>();
         newCube.AddComponent<Disappear>();
+        newCube.AddComponent<Rigidbody>();
         EventTrigger evtTrigger = newCube.GetComponent<EventTrigger>();
 
         EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
